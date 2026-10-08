@@ -1,5 +1,6 @@
-import { useState, type FormEvent, type JSX } from 'react'
+import { useEffect, useState, type FormEvent, type JSX } from 'react'
 import { ApiError, createJob, type AnalysisType } from '../api'
+import { useExampleText } from '../App'
 
 const ANALYSIS_OPTIONS: ReadonlyArray<{
   value: AnalysisType
@@ -28,12 +29,25 @@ type FormError = { kind: 'rejected' | 'unreachable'; message: string }
  * failed submission never fails silently (AC-12).
  */
 export default function JobForm(): JSX.Element {
+  const { exampleText, exampleTextRequestId } = useExampleText()
   const [text, setText] = useState('')
   const [analysis, setAnalysis] = useState<AnalysisType>('word_count')
   const [submitting, setSubmitting] = useState(false)
   const [touched, setTouched] = useState(false)
   const [error, setError] = useState<FormError | null>(null)
   const [confirmation, setConfirmation] = useState<string | null>(null)
+
+  // The empty-state button (JobList) asks App for the example text; App owns the
+  // value and bumps the request id, so an emptied text area is refilled here.
+  useEffect(() => {
+    if (exampleTextRequestId === 0) {
+      return
+    }
+    setText(exampleText)
+    setTouched(false)
+    setError(null)
+    setConfirmation(null)
+  }, [exampleText, exampleTextRequestId])
 
   const hasText = text.trim().length > 0
   const showEmptyError = touched && !hasText

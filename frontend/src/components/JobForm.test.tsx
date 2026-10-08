@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { ExampleTextContext } from '../App'
 import type { Job } from '../api'
 import { ApiError } from '../api'
 import * as api from '../api'
@@ -89,5 +90,21 @@ describe('JobForm', () => {
     const alert = await screen.findByRole('alert')
     expect(alert).toHaveTextContent('API nicht erreichbar.')
     expect(screen.getByRole('button', { name: 'Jetzt erneut versuchen' })).toBeInTheDocument()
+  })
+
+  it('accepts the incoming example text into its controlled text area', () => {
+    render(
+      <ExampleTextContext.Provider
+        value={{
+          exampleText: 'Ein Beispieltext aus dem Leerzustand.',
+          exampleTextRequestId: 1,
+          insertExampleText: () => undefined,
+        }}
+      >
+        <JobForm />
+      </ExampleTextContext.Provider>,
+    )
+
+    expect(screen.getByLabelText('Text')).toHaveValue('Ein Beispieltext aus dem Leerzustand.')
   })
 })
