@@ -375,7 +375,7 @@ select {
 /* Error banner ------------------------------------------------------------- */
 .error-banner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
@@ -384,6 +384,109 @@ select {
   border: 1px solid var(--color-statusFailed);
   color: var(--color-fg);
   font-size: 14px;
+}
+
+.error-banner__icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--color-statusFailed);
+  color: var(--color-bg);
+  font-size: var(--size-xs);
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+
+.error-banner__body {
+  flex: 1 1 auto;
+}
+
+.error-banner__body strong {
+  font-weight: var(--weight-heading);
+}
+
+.error-banner__close {
+  width: 44px;
+  height: 44px;
+  margin: -8px -8px -8px 0;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.error-banner__close:hover {
+  color: var(--color-fg);
+}
+
+/* Form feedback ------------------------------------------------------------ */
+.job-form__banner {
+  margin-bottom: var(--space-3);
+}
+
+.field__textarea--invalid {
+  border-color: var(--color-statusFailed);
+}
+
+.field__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 16px;
+}
+
+.field__error {
+  font-size: var(--size-xs);
+  color: var(--color-statusFailed);
+  visibility: hidden;
+}
+
+.field__error--visible {
+  visibility: visible;
+}
+
+.field__counter {
+  margin-left: auto;
+  font-size: var(--size-xs);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+}
+
+.form-confirmation {
+  margin: 0;
+  font-size: var(--size-sm);
+  color: var(--color-statusDone);
+}
+
+.btn--inline {
+  min-height: 32px;
+  padding: 0 var(--space-2);
+  margin-left: var(--space-1);
+  font-size: var(--size-sm);
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spinner-rotate 700ms linear infinite;
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Refresh status ----------------------------------------------------------- */

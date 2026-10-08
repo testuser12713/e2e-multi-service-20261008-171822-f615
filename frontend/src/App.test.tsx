@@ -12,13 +12,13 @@ describe('App shell', () => {
 
     const textarea = screen.getByLabelText('Text')
     expect(textarea).toBeInTheDocument()
-    expect(textarea).toBeDisabled()
+    expect(textarea).toBeEnabled()
 
     const select = screen.getByLabelText('Analyse')
     expect(select).toBeInTheDocument()
-    expect(select).toBeDisabled()
+    expect(select).toBeEnabled()
 
-    expect(screen.getByRole('button', { name: /Auftrag erstellen/ })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /Auftrag anlegen/ })).toBeDisabled()
 
     expect(screen.getByText('Noch keine Aufträge')).toBeInTheDocument()
   })
