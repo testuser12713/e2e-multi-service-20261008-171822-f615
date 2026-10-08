@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { JSX } from 'react'
 import { ApiError, fetchJobs } from '../api'
 import type { Job } from '../api'
+import { useExampleText } from '../App'
 import JobItem from './JobItem'
 
 /**
@@ -57,6 +58,7 @@ function SkeletonCard(): JSX.Element {
 }
 
 export default function JobList(): JSX.Element {
+  const { insertExampleText } = useExampleText()
   const [jobs, setJobs] = useState<Job[]>([])
   const [loaded, setLoaded] = useState(false)
   const [refreshing, setRefreshing] = useState(true)
@@ -177,11 +179,9 @@ export default function JobList(): JSX.Element {
           <button
             type="button"
             className="btn btn--ghost"
-            disabled
-            aria-disabled="true"
-            title="Noch nicht verfügbar"
+            onClick={insertExampleText}
           >
-            Beispieltext einfügen · noch nicht verfügbar
+            Beispieltext einfügen
           </button>
         </div>
       ) : null}
