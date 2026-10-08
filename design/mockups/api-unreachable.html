@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auftragsverarbeitung — API nicht erreichbar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header" data-od-id="app-header">
+    <div class="container header-inner">
+      <div class="brand" data-od-id="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Auftragsverarbeitung</span>
+      </div>
+      <div class="header-right">
+        <span class="refresh-status js-refresh-status is-error" data-od-id="refresh-status">Auto-Aktualisierung pausiert — neuer Versuch</span>
+        <span class="health-chip js-health-chip" data-od-id="health-chip"><span class="health-dot is-down"></span>API down</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="error-banner js-error-banner" role="alert" data-od-id="error-banner">
+      <span class="error-icon" aria-hidden="true">!</span>
+      <div class="error-body"><strong>API nicht erreichbar.</strong> Zeige die zuletzt bekannte Liste von 17:14. <button type="button" class="btn btn-ghost btn-ghost-inline js-retry">Jetzt erneut versuchen</button></div>
+      <button type="button" class="error-close js-error-close" aria-label="Schließen">&times;</button>
+    </div>
+
+    <div class="layout">
+      <form class="form-panel js-job-form" data-submit-mode="unreachable" data-od-id="form-panel">
+        <div>
+          <label class="form-label" for="job-text">Text</label>
+          <textarea id="job-text" class="textarea js-job-text" data-od-id="job-text-input" placeholder="Text einfügen oder eingeben…"></textarea>
+          <div class="form-meta">
+            <span class="field-error">Der Text darf nicht leer sein.</span>
+            <span class="char-counter js-char-counter">0 Zeichen</span>
+          </div>
+        </div>
+        <div>
+          <label class="form-label" for="analysis">Analyse</label>
+          <select id="analysis" class="select js-analysis" data-od-id="analysis-select">
+            <option value="word_count" selected>word_count — Wörter zählen</option>
+            <option value="top_words">top_words — häufigste Wörter</option>
+            <option value="reading_time">reading_time — geschätzte Lesezeit</option>
+          </select>
+        </div>
+        <div class="form-footer">
+          <button type="submit" class="btn btn-primary js-submit" data-od-id="submit-job" disabled aria-disabled="true">
+            <span class="js-submit-label">Auftrag anlegen (Text erforderlich)</span>
+          </button>
+          <span class="form-hint">Aufträge laufen im Hintergrund — Ergebnisse erscheinen innerhalb weniger Sekunden.</span>
+        </div>
+      </form>
+
+      <section class="list-col" data-od-id="job-list">
+        <div class="job-list js-job-list">
+          <article class="job-card is-done" data-od-id="job-card-1">
+            <div class="job-top">
+              <span class="badge badge-done"><span class="badge-dot"></span>fertig</span>
+              <span class="job-meta">#a5b1 · 2026-10-08 17:14</span>
+            </div>
+            <p class="job-text js-job-text" tabindex="0" role="button" aria-expanded="false">Der Wochenbericht fasst die Ergebnisse zusammen und enthält die wichtigsten Kennzahlen aus allen Teams. Die Zahlen wurden geprüft und für das Management aufbereitet.</p>
+            <button type="button" class="job-toggle js-job-toggle" aria-expanded="false">Mehr anzeigen</button>
+            <div class="job-analysis">word_count — Wörter zählen</div>
+            <div class="job-result">35 Wörter</div>
+          </article>
+
+          <article class="job-card" data-od-id="job-card-2">
+            <div class="job-top">
+              <span class="badge badge-running"><span class="badge-dot"></span>in Arbeit</span>
+              <span class="job-meta">#c2e8 · 2026-10-08 17:13</span>
+            </div>
+            <p class="job-text js-job-text" tabindex="0" role="button" aria-expanded="false">Welche Begriffe kommen in diesem Text am häufigsten vor? Bitte liste die Top-Wörter mit ihren Häufigkeiten auf.</p>
+            <button type="button" class="job-toggle js-job-toggle" aria-expanded="false">Mehr anzeigen</button>
+            <div class="job-analysis">top_words — häufigste Wörter</div>
+            <div class="job-result is-running">Analysiere…<span class="progress" aria-hidden="true"></span></div>
+          </article>
+
+          <article class="job-card is-failed" data-od-id="job-card-3">
+            <div class="job-top">
+              <span class="badge badge-failed"><span class="badge-dot"></span>fehlgeschlagen</span>
+              <span class="job-meta">#d90c · 2026-10-08 17:12</span>
+            </div>
+            <p class="job-text js-job-text" tabindex="0" role="button" aria-expanded="false">… … …</p>
+            <button type="button" class="job-toggle js-job-toggle" aria-expanded="false">Mehr anzeigen</button>
+            <div class="job-analysis">top_words — häufigste Wörter</div>
+            <div class="job-result is-failed">Fehler: Analyse 'top_words' schlug fehl – keine Wörter im Text gefunden.</div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <nav class="container mockup-nav" aria-label="Mockup-Bildschirme">
+    <span class="mockup-label">Mockup · Bildschirme:</span>
+    <a href="index.html">Aufträge</a>
+    <a href="empty.html">Leer</a>
+    <a href="validation.html">Validierung</a>
+    <a href="api-unreachable.html" class="is-current">API nicht erreichbar</a>
+    <a href="skeleton.html">Aktualisieren</a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
