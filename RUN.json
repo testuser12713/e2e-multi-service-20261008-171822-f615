@@ -6,14 +6,114 @@
       "dir": "frontend",
       "stack": "web-vite",
       "kind": "server",
-      "install": [["npm", "ci"]],
-      "build": [["npm", "run", "build"]],
-      "start": ["node", "node_modules/vite/bin/vite.js", "--host", "127.0.0.1", "--port", "${PORT}", "--strictPort"],
+      "install": [
+        [
+          "npm",
+          "ci"
+        ]
+      ],
+      "build": [
+        [
+          "npm",
+          "run",
+          "build"
+        ]
+      ],
+      "start": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "${PORT}",
+        "--strictPort"
+      ],
       "port": 5173,
       "port_env": "PORT",
-      "health": { "path": "/", "expect_status": [200] },
+      "health": {
+        "path": "/",
+        "expect_status": [
+          200
+        ]
+      },
       "env": {
-        "VITE_API_BASE_URL": { "dev": "http://localhost:8000" }
+        "VITE_API_BASE_URL": {
+          "dev": "http://localhost:8000"
+        }
+      }
+    },
+    {
+      "name": "api",
+      "dir": ".",
+      "stack": "python",
+      "kind": "server",
+      "install": [
+        [
+          "${python}",
+          "-m",
+          "pip",
+          "install",
+          "-q",
+          "-e",
+          "."
+        ]
+      ],
+      "start": [
+        "${python}",
+        "-m",
+        "uvicorn",
+        "backend.app.main:app",
+        "--port",
+        "${PORT}"
+      ],
+      "port": 8000,
+      "port_env": "API_PORT",
+      "health": {
+        "path": "/health",
+        "expect_status": [
+          200
+        ]
+      },
+      "env": {
+        "JOB_DB_PATH": {
+          "dev": "data/jobs.db"
+        },
+        "API_HOST": {
+          "dev": "127.0.0.1"
+        },
+        "API_PORT": {
+          "dev": "8000"
+        },
+        "FRONTEND_ORIGIN": {
+          "dev": "http://localhost:5173"
+        }
+      }
+    },
+    {
+      "name": "worker",
+      "dir": ".",
+      "stack": "python",
+      "kind": "worker",
+      "install": [
+        [
+          "${python}",
+          "-m",
+          "pip",
+          "install",
+          "-q",
+          "-e",
+          "."
+        ]
+      ],
+      "start": [
+        "${python}",
+        "-m",
+        "backend.app.worker"
+      ],
+      "env": {
+        "JOB_DB_PATH": {
+          "dev": "data/jobs.db"
+        }
       }
     }
   ]
